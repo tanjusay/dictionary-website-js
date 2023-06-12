@@ -10,9 +10,8 @@ body {
 .whole {
   display: flex;
   flex-direction: column;
-  background-image: url('pic.jpg') ;
   background-size: cover ;
-  background-color :#ff000a; 
+  background-color :#fff ; 
 }
 #top {
   display :flex ;
