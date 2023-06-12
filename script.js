@@ -1,4 +1,3 @@
-
 function getDefinition() {
   const wordInput = document.getElementById('word');
   const word = wordInput.value;
@@ -12,26 +11,21 @@ function getDefinition() {
 
       if (Array.isArray(data)) {
         data.forEach(entry => {
-          const { word, meanings, phonetics } = entry;
+          const { word, meanings, phonetics, origin} = entry;
 
-          if (!processedWords.includes(word)) { // Check if word is already processed
-            processedWords.push(word); // Add word to processedWords array
+          if (!processedWords.includes(word)) { 
+            processedWords.push(word);
 
             if (word) {
   const wordElement = `<h3>${word}</h3>`;
   definitionsContainer.insertAdjacentHTML('beforeend', wordElement);
 }
-
+            
 if (phonetics && Array.isArray(phonetics) && phonetics.length > 0 && phonetics[0].audio) {
   const audioUrl = phonetics[0].audio;
   const playButton = `<button onclick="playAudio('${audioUrl}')" id="play-button"><i class="fas fa-play"></i></button>`;
   definitionsContainer.insertAdjacentHTML('beforeend', playButton);
 }
-
-            if (entry.hasOwnProperty('wordtype')) {
-              const wordType = `<p>${entry.wordtype}</p>`;
-              definitionsContainer.insertAdjacentHTML('beforeend', wordType);
-            }
 
             if (Array.isArray(meanings)) {
               meanings.forEach(meaning => {
@@ -47,12 +41,16 @@ if (phonetics && Array.isArray(phonetics) && phonetics.length > 0 && phonetics[0
                   });
                 }
 
-                if (Array.isArray(examples)) {
-                  examples.forEach(example => {
-                    const exampleElement = `<p><em>Example:</em> ${example.example}</p>`;
-                    definitionsContainer.insertAdjacentHTML('beforeend', exampleElement);
-                  });
-                }
+                if (Array.isArray(definitions)) {
+  definitions.forEach(example => {
+    if (example.example) {
+      const exampleElement = `<p><em>example:</em> ${example.example}</p>`;
+     definitionsContainer.insertAdjacentHTML('beforeend', exampleElement);
+    }
+  });
+}
+
+
               });
             }
           }
@@ -71,4 +69,3 @@ function playAudio(audioUrl) {
   const audio = new Audio(audioUrl);
   audio.play();
 }
-
